@@ -14,8 +14,14 @@ let gameboard = (() => {
             square.addEventListener('click', Game.handleClick);
         });
     }
+
+    const update = (index, value) => {
+        gameboard[index] = value;
+        render();
+    }
     return {
         render,
+        update,
     }
 })();
 
@@ -43,7 +49,7 @@ const Game = (() => {
 
     const handleClick = (event) => {
         let index = parseInt(event.target.id);
-         Game.update(index, players[currentPlayerIndex].mark);
+        gameboard.update(index, players[currentPlayerIndex].mark);
     }; 
     return {
         start,
