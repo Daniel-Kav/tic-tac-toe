@@ -42,7 +42,8 @@ const Game = (() => {
     }
 
     const handleClick = (event) => {
-        console.log(event.target.id); 
+        let index = event.target.id.split("-")[1]; ;
+        console.log(index);
     }; 
     return {
         start,
