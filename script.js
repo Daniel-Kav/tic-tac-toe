@@ -8,9 +8,14 @@ let gameboard = (() => {
             boardHTML += `<div class="square" id="${index}">${square}</div>`;
         });
         document.querySelector('#gameboard').innerHTML = boardHTML;
+        const squares = document.querySelectorAll('.square');
+        console.log(squares);
+        squares.forEach((square) => {
+            square.addEventListener('click', Game.handleClick);
+        });
     }
     return {
-        start,
+        render,
     }
 })();
 
@@ -33,10 +38,14 @@ const Game = (() => {
         ]
         currentPlayerIndex = 0;
         gameOver = false;
+        gameboard.render();
+    }
+    return {
+        start,
     }
 })();
 
 const startButton = document.querySelector("#startButton");
-starrtButton.addEventListener("click", () => {
+startButton.addEventListener("click", () => {
     Game.start();
 });
