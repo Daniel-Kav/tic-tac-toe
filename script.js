@@ -42,7 +42,7 @@ const Game = (() => {
     }
 
     const handleClick = (event) => {
-        alert("hello"); 
+        console.log(event.target.id); 
     }; 
     return {
         start,
