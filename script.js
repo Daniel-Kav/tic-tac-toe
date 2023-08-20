@@ -42,8 +42,8 @@ const Game = (() => {
     }
 
     const handleClick = (event) => {
-        let index = event.target.id.split("-")[1]; ;
-        console.log(index);
+        let index = parseInt(event.target.id);
+         Game.update(index, players[currentPlayerIndex].mark);
     }; 
     return {
         start,
