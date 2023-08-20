@@ -40,8 +40,13 @@ const Game = (() => {
         gameOver = false;
         gameboard.render();
     }
+
+    const handleClick = (event) => {
+        alert("hello"); 
+    }; 
     return {
         start,
+        handleClick,
     }
 })();
 
