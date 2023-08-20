@@ -50,6 +50,8 @@ const Game = (() => {
     const handleClick = (event) => {
         let index = parseInt(event.target.id);
         gameboard.update(index, players[currentPlayerIndex].mark);
+
+        currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0; 
     }; 
     return {
         start,
