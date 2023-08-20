@@ -19,9 +19,12 @@ let gameboard = (() => {
         gameboard[index] = value;
         render();
     }
+
+    const getgameboard = ()=> gameboard;
     return {
         render,
         update,
+        getgameboard,
     }
 })();
 
@@ -49,15 +52,37 @@ const Game = (() => {
 
     const handleClick = (event) => {
         let index = parseInt(event.target.id);
+    
+        // Check if the clicked square is already occupied
+        if (gameboard.getgameboard()[index] !== "") {
+            return; // Don't make any changes if the square is occupied
+        }
+    
+        // Update the gameboard with the current player's mark
         gameboard.update(index, players[currentPlayerIndex].mark);
-
+    
+        // Toggle the current player's turn
         currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0; 
-    }; 
+    };
+    
+    const restart = () => {
+        for(let i = 0; i < 9; i++){
+            gameboard.update(i, "");
+        }
+        gameboard.render();
+    }
+    
     return {
         start,
+        restart, 
         handleClick,
     }
 })();
+
+const restartButton = document.querySelector('#restart');
+restartButton.addEventListener('click', () =>{
+    Game.restart;
+})
 
 const startButton = document.querySelector("#startButton");
 startButton.addEventListener("click", () => {
