@@ -64,8 +64,10 @@ const Game = (() => {
         if(checkForWin(gameboard.getgameboard(),players[currentPlayerIndex].mark)) {
             gameOver = true;
             alert(`${players[currentPlayerIndex].name} won !`);
-        }
-        // Toggle the current player's turn
+        }else if(checkForTie(gameboard.getgameboard())){
+            gameOver = true;
+            alert("It's a tie!");
+        }        // Toggle the current player's turn
         currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0; 
     };
     
