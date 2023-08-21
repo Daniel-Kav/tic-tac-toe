@@ -1,4 +1,13 @@
 
+const displayController = (() => {
+    const renderMessage = (message) => {
+        document.querySelector('#message').innerHTML = message;
+    }
+    return {
+        renderMessage,
+    }
+})();
+
 let gameboard = (() => {
     let gameboard = ["", "", "", "", "", "", "", "",""];
 
@@ -66,10 +75,10 @@ const Game = (() => {
 
         if(checkForWin(gameboard.getgameboard(),players[currentPlayerIndex].mark)) {
             gameOver = true;
-            alert(`${players[currentPlayerIndex].name} won !`);
+            displayController.renderMessage(`${players[currentPlayerIndex].name} won !!`)
         }else if(checkForTie(gameboard.getgameboard())){
             gameOver = true;
-            alert("It's a tie!");
+            displayController.renderMessage("Tie Game")
         }        // Toggle the current player's turn
         currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0; 
     };
@@ -119,6 +128,7 @@ function checkForTie(board){
 const restartButton = document.querySelector('#restart');
 restartButton.addEventListener('click', () =>{
     Game.restart();
+    document.querySelector("#message").innerHTML = "";
 })
 
 const startButton = document.querySelector("#startButton");
