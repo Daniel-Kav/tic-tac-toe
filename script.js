@@ -88,6 +88,8 @@ const Game = (() => {
             gameboard.update(i, "");
         }
         gameboard.render();
+        gameOver = false;
+        document.querySelector("#message").innerHTML = "";
     }
     
     return {
@@ -128,7 +130,6 @@ function checkForTie(board){
 const restartButton = document.querySelector('#restart');
 restartButton.addEventListener('click', () =>{
     Game.restart();
-    document.querySelector("#message").innerHTML = "";
 })
 
 const startButton = document.querySelector("#startButton");
