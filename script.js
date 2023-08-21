@@ -60,7 +60,11 @@ const Game = (() => {
     
         // Update the gameboard with the current player's mark
         gameboard.update(index, players[currentPlayerIndex].mark);
-    
+
+        if(checkForWin(gameboard.getgameboard(),players[currentPlayerIndex].mark)) {
+            gameOver = true;
+            alert(`${players[currentPlayerIndex].name} won !`);
+        }
         // Toggle the current player's turn
         currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0; 
     };
@@ -78,6 +82,24 @@ const Game = (() => {
         handleClick,
     }
 })();
+
+function checkForWin(board){
+    const winningCombinations = [
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6]
+    ]
+    for(let i = 0; i < winningCombinations.length; i++){
+        if(board[winningCombinations[i][0]] === board[winningCombinations[i][1]] && board[winningCombinations[i][1]] === board[winningCombinations[i][2]] && board[winningCombinations[i][0]]!== ""){
+            return true;
+        }
+    }
+}
 
 const restartButton = document.querySelector('#restart');
 restartButton.addEventListener('click', () =>{
