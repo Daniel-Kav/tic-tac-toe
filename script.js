@@ -51,6 +51,9 @@ const Game = (() => {
     }
 
     const handleClick = (event) => {
+        if (gameOver) {
+            return;
+        }
         let index = parseInt(event.target.id);
     
         // Check if the clicked square is already occupied
@@ -102,6 +105,15 @@ function checkForWin(board){
         }
     }
     return false;
+}
+
+function checkForTie(board){
+    for(let i = 0; i < 9; i++){
+        if(board[i] === ""){
+            return false;
+        }
+    }
+    return true;
 }
 
 const restartButton = document.querySelector('#restart');
