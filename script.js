@@ -81,7 +81,7 @@ const Game = (() => {
 
 const restartButton = document.querySelector('#restart');
 restartButton.addEventListener('click', () =>{
-    Game.restart;
+    Game.restart();
 })
 
 const startButton = document.querySelector("#startButton");
