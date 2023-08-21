@@ -99,6 +99,7 @@ function checkForWin(board){
             return true;
         }
     }
+    return false;
 }
 
 const restartButton = document.querySelector('#restart');
