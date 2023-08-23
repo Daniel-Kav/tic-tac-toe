@@ -36,10 +36,18 @@ let gameboard = (() => {
         getgameboard,
     }
 })();
-
+//create  a player factory
 const createPlayer = (name,mark) => {
     return {
         name,
+        mark,
+    }
+};
+
+//create a computer player factory
+const createComputerPlayer = (mark) => {
+    return {
+        name :"Computer",
         mark,
     }
 };
@@ -58,7 +66,7 @@ const Game = (() => {
         gameOver = false;
         gameboard.render();
     }
-
+/** 
     const handleClick = (event) => {
         if (gameOver) {
             return;
@@ -82,7 +90,40 @@ const Game = (() => {
         }        // Toggle the current player's turn
         currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0; 
     };
+    */
+    const handleClick = (event) => {
+        if (gameOver) {
+            return;
+        }
     
+        let index = parseInt(event.target.id);
+    
+        if (gameboard.getgameboard()[index] !== "") {
+            return;
+        }
+    
+        gameboard.update(index, players[currentPlayerIndex].mark);
+    
+        if (checkForWin(gameboard.getgameboard(), players[currentPlayerIndex].mark)) {
+            gameOver = true;
+            displayController.renderMessage(`${players[currentPlayerIndex].name} won !!`);
+        } else if (checkForTie(gameboard.getgameboard())) {
+            gameOver = true;
+            displayController.renderMessage("Tie Game");
+        }
+    
+        if (!gameOver && currentPlayerIndex === 0) {
+            // If it's not game over and it's the human player's turn,
+            // trigger the computer's move after a short delay (for realism).
+            setTimeout(() => {
+                computerMove();
+            }, 500);
+        }
+    
+        currentPlayerIndex = currentPlayerIndex === 0 ? 1 : 0;
+    };
+    
+
     const restart = () => {
         for(let i = 0; i < 9; i++){
             gameboard.update(i, "");
@@ -117,6 +158,30 @@ function checkForWin(board){
     }
     return false;
 }
+
+//computer move function
+const computerMove = () => {
+    const emptySquares = gameboard.getgameboard().reduce((acc, val, index) => {
+        if (val === "") {
+            acc.push(index);
+        }
+        return acc;
+    }, []);
+
+    if (emptySquares.length > 0) {
+        const randomIndex = Math.floor(Math.random() * emptySquares.length);
+        gameboard.update(emptySquares[randomIndex], players[currentPlayerIndex].mark);
+
+        if (checkForWin(gameboard.getgameboard(), players[currentPlayerIndex].mark)) {
+            gameOver = true;
+            displayController.renderMessage(`${players[currentPlayerIndex].name} won !!`);
+        } else if (checkForTie(gameboard.getgameboard())) {
+            gameOver = true;
+            displayController.renderMessage("Tie Game");
+        }
+    }
+};
+
 
 function checkForTie(board){
     for(let i = 0; i < 9; i++){
